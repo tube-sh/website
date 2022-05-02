@@ -5,21 +5,20 @@
 <script>
 
   function test() {
-    alert(document.getElementById('useremail').value)
     var xhr = new XMLHttpRequest();
     var url = "https://api.tube.sh/v1/users";
     xhr.open("POST", url, true);
     xhr.setRequestHeader("Content-Type", "application/json");
     xhr.onreadystatechange = function () {
         if (xhr.readyState === 4 && xhr.status === 201) {
-            var json = JSON.parse(xhr.responseText);
-            console.log(json.email);
+          $("#alert-apikey-send-ok").removeClass('d-none');
+        } else if (xhr.readyState === 4 && xhr.status === 409) {
+          $("#alert-apikey-send-userexists").removeClass('d-none');
         }
     };
     var data = JSON.stringify({"email": document.getElementById('useremail').value});
     xhr.send(data);
 
-    $("#alert-apikey-send").removeClass('d-none');
 
   }
 </script>
@@ -35,8 +34,11 @@
           aria-describedby="button-addon2">
         <button class="btn btn-warning" type="button" id="button-addon2" onclick="test()">Get An API Key</button>
       </div>
-      <div id="alert-apikey-send" class="alert alert-success mt-4 d-none" role="alert">
-        An API key has been sent successfully on your email address
+      <div id="alert-apikey-send-ok" class="alert alert-success mt-4 d-none" role="alert">
+        An API key has been sent on your email address
+      </div>
+      <div id="alert-apikey-send-userexists" class="alert alert-danger mt-4 d-none" role="alert">
+        User with this email is already registered
       </div>
       <!--<a class="btn btn-primary btn-lg px-4 mb-2"
         href="/docs/{{ if .Site.Params.options.docsVersioning }}{{ .Site.Params.docsVersion }}/{{ end }}prologue/introduction/"
