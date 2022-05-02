@@ -5,13 +5,19 @@
 <script>
 
   function test() {
-    let xhr = new XMLHttpRequest();
-    xhr.open('get', 'https://api.tube.sh');
-    xhr.send();
-
-    xhr.onload = function () {
-      console.log(xhr.response);
+    alert(document.getElementById('useremail').value)
+    var xhr = new XMLHttpRequest();
+    var url = "https://api.tube.sh/v1/users";
+    xhr.open("POST", url, true);
+    xhr.setRequestHeader("Content-Type", "application/json");
+    xhr.onreadystatechange = function () {
+        if (xhr.readyState === 4 && xhr.status === 201) {
+            var json = JSON.parse(xhr.responseText);
+            console.log(json.email);
+        }
     };
+    var data = JSON.stringify({"email": document.getElementById('useremail').value});
+    xhr.send(data);
 
     $("#alert-apikey-send").removeClass('d-none');
 
@@ -25,7 +31,7 @@
     <div class="col-lg-9 col-xl-8 text-center">
       <p class="lead">{{ .Params.lead | safeHTML }}</p>
       <div class="input-group input-group-lg">
-        <input type="text" class="form-control" placeholder="email@address.com" aria-label="Email address"
+        <input id="useremail" type="text" class="form-control" placeholder="email@address.com" aria-label="Email address"
           aria-describedby="button-addon2">
         <button class="btn btn-warning" type="button" id="button-addon2" onclick="test()">Get An API Key</button>
       </div>
