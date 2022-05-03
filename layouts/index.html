@@ -14,6 +14,8 @@
           $("#alert-apikey-send-ok").removeClass('d-none');
         } else if (xhr.readyState === 4 && xhr.status === 409) {
           $("#alert-apikey-send-userexists").removeClass('d-none');
+        } else {
+          $("#alert-apikey-send-error").removeClass('d-none');
         }
     };
     var data = JSON.stringify({"email": document.getElementById('useremail').value});
@@ -40,10 +42,16 @@
       <div id="alert-apikey-send-userexists" class="alert alert-danger mt-4 d-none" role="alert">
         User with this email is already registered
       </div>
-      <!--<a class="btn btn-primary btn-lg px-4 mb-2"
-        href="/docs/{{ if .Site.Params.options.docsVersioning }}{{ .Site.Params.docsVersion }}/{{ end }}prologue/introduction/"
-        role="button">Get Started</a>
-      <p class="meta">Open-source MIT Licensed. <a href="https://github.com/h-enk/doks">GitHub v{{ $data := getJSON
+      <div id="alert-apikey-send-userexists" class="alert alert-danger mt-4 d-none" role="alert">
+        An error occurred. Please retry later
+      </div>
+      <a class="btn btn-secondary outline btn-lg px-4 mt-4 mb-2"
+        href="/docs/{{ if .Site.Params.options.docsVersioning }}{{ .Site.Params.docsVersion }}/{{ end }}get-started/introduction/"
+        role="button">Get started</a>
+        <a class="btn btn-outline-secondary btn-lg px-4 mt-4 mb-2"
+        href="/docs/{{ if .Site.Params.options.docsVersioning }}{{ .Site.Params.docsVersion }}/{{ end }}overview/presentation/"
+        role="button">Read docs</a>
+      <!--<p class="meta">Open-source MIT Licensed. <a href="https://github.com/h-enk/doks">GitHub v{{ $data := getJSON
           "/package.json" }}{{ $data.version }}</a></p>-->
     </div>
   </div>
@@ -61,15 +69,14 @@
           out of the box. Easily change the default Security Headers to suit your needs.</p>
       </div>
       <div class="col-lg-5">
-        <h2 class="h4">Fast by default ⚡️</h2>
+        <h2 class="h4">Zero Trust gateway</h2>
         <p>Get 100 scores on <a
             href="https://googlechrome.github.io/lighthouse/viewer/?gist=92eaa982d7dbf92f94fe8ecc03987c9a">Google
             Lighthouse</a> by default. Doks removes unused css, prefetches links, and lazy loads images.</p>
       </div>
       <div class="col-lg-5">
-        <h2 class="h4">SEO-ready</h2>
-        <p>Use sensible defaults for structured data, open graph, and Twitter cards. Or easily change the SEO settings
-          to your liking.</p>
+        <h2 class="h4">Full code</h2>
+        <p>Configure Tube as code with our Terraform provider or directly with the API</p>
       </div>
     </div>
     <div class="row justify-content-center text-center">
